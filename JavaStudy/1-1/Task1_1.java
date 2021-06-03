@@ -20,7 +20,7 @@ public class Task1_1 {
     
 
         // ③下記の処理について、何をしているのかコメントを記入してください
-        // [int型からdouble型に変換]
+        // [double型の hogeDouble という名前の変数を宣言し、値「0.2」で初期化]
         double hogeDouble = 0.2;
 
         // ④変数 hogeInt を値「100」で上書き
