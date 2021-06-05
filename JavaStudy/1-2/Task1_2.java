@@ -20,25 +20,20 @@ public class Task1_2 {
         // ② ①で作成した配列の要素数を出力してください。
         System.out.println(country.length);
 
-        // ③下記の値を保持した、要素数3のStringクラスの配列strArrayを作成しなさい。
-        //   1番目（先頭）の要素に 「りんご」 を代入
-         country[0]= "りんご";
 
-        //  2番目の要素に 「もも」 を代入
-         country[1]= "もも";
+  /* ③下記の値を保持した、要素数3のStringクラスの配列strArrayを作成しなさい。
+         *   1番目（先頭）の要素に 「りんご」 を代入
+         *   2番目の要素に 「もも」 を代入
+         *   3番目の要素に 「ぶどう」 を代入
+         */
+          String[] strArray ={"りんご","もも","ぶどう"};
 
-
-        // 3番目の要素に 「ぶどう」 を代入
-         country[2]= "ぶどう";
-         
 
         // ④ ③で作成した配列の2番目の要素を出力しなさい。
-        System.out.println(country[1]);
-
-
+        System.out.println(strArray[1]);
 
         /* ⑤下記の処理について、何をしているのかコメントを記入してください。
-         *  [int[]型の変数intArrayの宣言と初期化 ]
+         *  [int型の変数intArrayの宣言と初期化 ]
          */
         int[] intArray = { 10, 20, 30, 40, 50 };
 
