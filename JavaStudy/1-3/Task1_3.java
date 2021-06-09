@@ -27,8 +27,8 @@ public class Task1_3 {
         int remi = 20 % 6;
 
         // ⑤下記の処理について、何をしているのかコメントを記入してください
-        // [Stringクラスの town という名前の変数を宣言し、値「有楽町」で初期化]
-        // [Stringクラスの line という名前の変数を宣言し、値「線」で初期化]
+        // [String型の town という名前の変数を宣言し、値「有楽町」で初期化]
+        // [String型の line という名前の変数を宣言し、値「線」で初期化]
         String town = "有楽町";
         String line = "線";
 
