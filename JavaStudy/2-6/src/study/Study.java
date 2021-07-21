@@ -37,9 +37,9 @@ public class Study {
         // - この課題に関しては課題実施日によって結果が異なりますので、Wiki課題の画像とは結果が異なります。
         // - また、うるう年の場合は設定内容が正しくとも日付がズレて表示される可能性があります。
 
-calendar.add(calendar.YEAR,1);
-calendar.add(calendar.MONTH,3);
-calendar.add(calendar.DAY_OF_MONTH,15);
+calendar.add(Calendar.YEAR,1);
+calendar.add(Calendar.MONTH,3);
+calendar.add(Calendar.DAY_OF_MONTH,15);
 
 System.out.println(calendar.get(Calendar.YEAR));
 System.out.println(calendar.get(Calendar.MONTH));
