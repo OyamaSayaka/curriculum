@@ -9,19 +9,29 @@
     width: 100px;
 }
 
-.centerbox3 {
-    width: 125px;
+.centerbox2 {
+    width: 200px;
+}
+
+
+.center1{
+
+width: 75px;
+}
+
+.center2{
+ width: 125px;
 }
 
 
 .center3{
-
-width: 75px;
+width: 125px;
 }
 
 .center4{
 width: 200px;
 }
+
 
 .footer{
     width: 300px;
@@ -53,15 +63,22 @@ width: 200px;
         float: none;
     }
 
+
+    .center1{
+        width: 150px;
+        float: none;
+    }
+
     .center2{
         width: 150px;
         
     }
-    
+
     .center3{
         width: 150px;
         
     }
+    
 
     .center4{
         width: 150px;

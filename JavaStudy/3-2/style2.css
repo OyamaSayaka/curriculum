@@ -17,8 +17,10 @@
     float: left;
 }
 
+
 .centerbox1{
     float: left;
+    width: 250px;
 }
 
 .centerbox3{
@@ -27,24 +29,27 @@
 
 
 .center1{
+    width: 100px;
+    height: 150px;
+    background-color: #ff9e6b;
+    float: right;
+    
+}
+
+.center2{
     width: 150px;
     height: 50px;
     background-color: #bdb400;
 }
 
-.center2{
+.center3{
     width: 150px;
     height: 100px;
     background-color: #0093b7;
     
 }
 
-.center3{
-    width: 100px;
-    height: 150px;
-    background-color: #ff9e6b;
-    float: left;
-}
+
 
 .center4{
     width: 250px;
