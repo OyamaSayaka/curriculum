@@ -1,0 +1,184 @@
+.header{
+    width: 400px;
+    height: 100px;
+    background-color: #141f40;
+}
+
+.headerbox{
+    display: flex;
+    width: 160px;
+    height: 60px;
+    background-color:white;
+    position: relative;
+    top: 20px;
+    left: 200px;
+    align-items: center;
+    justify-content: space-around;
+   
+    
+
+}
+
+
+
+.box1{
+    width: 40px;
+    height: 40px;
+    background-color: #a9004b;
+    
+
+}
+
+.box2{
+    width: 40px;
+    height: 40px;
+    background-color: #a9004b;
+    
+}
+
+.box3{
+    width: 40px;
+    height: 40px;
+    background-color: #a9004b;
+    
+
+}
+
+
+.main{
+    display: flex;
+}
+
+.left{
+    background-color: #80bfa8;
+    width: 150px;
+    height: 250px;
+
+}
+
+.right{
+    width: 250px;
+    height: 250px;
+    background-color: #8c2727;
+
+}
+
+
+.rightbox{
+    position: relative;
+    top: 40px;
+    left: 40px;
+    right: 60px;
+    bottom: 40px;
+}
+
+.rbox1{
+    width: 140px;
+    height: 40px;
+    background-color: #ff863f;
+    border: solid 5px white;
+
+}
+
+
+
+.rbox2{
+    width: 140px;
+    height: 40px;
+    background-color: #ff863f;
+    margin-top: 10px;
+    border: solid 5px white;
+}
+
+.rbox3{
+    width: 140px;
+    height: 40px;
+    background-color: #ff863f;
+    margin-top: 10px;
+    border: solid 5px white;
+}
+
+.footer{
+    width: 400px;
+    height: 100px;
+    background-color: #d98d30;
+    
+}
+
+
+@media screen and (max-width: 479px) {
+   
+
+    .header{
+     height: 200px;
+     width: 200px;
+     display: flex;
+     position: static;
+ 
+     
+    }
+
+    .headerbox{
+        position: relative;
+          top: 20px;
+          left: 70px;
+          right: 70px;
+
+          align-items: center;
+          justify-content: space-around;
+         display: block;
+         width: 60px;
+         height: 160px;
+         text-align: center;
+    
+       
+    }
+.box1{
+    margin: 10px;
+}
+.box2{
+    margin: 10px;
+}
+.box3{
+    margin: 10px;
+}
+
+    .main{
+        display: block;
+    }
+
+    .left{
+        height: 100px;
+        width: 200px;
+    }
+
+    .right{
+        height: 210px;
+        width: 200px;
+    }
+
+    .rightbox{
+    position: relative;
+    top: 20px;
+    left: 30px;
+    right: 30px;
+    bottom: 20px;
+   
+    }
+
+    .rbox1{
+        width: 130px;
+    }
+
+    .rbox2{
+        width: 130px;
+    }
+
+    .rbox3{
+        width: 130px;
+    }
+.footer{
+    width: 200px;
+}
+
+}
