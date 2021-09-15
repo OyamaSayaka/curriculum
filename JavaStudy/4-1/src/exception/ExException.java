@@ -92,7 +92,7 @@ public class ExException {
                 // ルール: 上述の他の例外同様引、数名は「e」で記述すること。
             } /* ここへ記述 */ 
             
-             catch(Exception e){
+             catch(ClassCastException e){
                 printException(e);
             } finally {
                 System.out.println("リトライ回数 = " + retryCounter++);
