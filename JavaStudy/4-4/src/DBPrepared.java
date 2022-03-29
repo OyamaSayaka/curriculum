@@ -41,18 +41,16 @@ public class DBPrepared {
             Class.forName(POSTGRES_DRIVER);
             // 問④ 問①〜③の定数を使ってデータベースと接続しなさい。
             connection = DriverManager.getConnection(
-            		JDBC_CONNECTION, USER, PASS);
-            statement = connection.createStatement();
-
-            String SQL = "SELECT * FROM TB_SHOHIN WHERE SHOHIN_ID = ? OR SHOHIN_ID = ? ";
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+                    JDBC_CONNECTION, USER, PASS);
+                  String SQL = "SELECT * FROM TB_SHOHIN WHERE SHOHIN_ID = ? OR SHOHIN_ID = ? ";
+                  PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 
             /*
             * 問⑤ SHOHIN_IDが001と020のものを表示できるように
             * PreparedStatementインターフェースを使って値をSQL文にセットしてみましょう。
             */
-            preparedStatement.setString(1,"1");
-            preparedStatement.setString(2,"20");
+            preparedStatement.setInt(1,1);
+            preparedStatement.setInt(2,20);
 
             resultSet = preparedStatement.executeQuery();
 
