@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<div style="text-align:center">
- 			<h2 style="text-align:center">検索ID入力画面</h2>
+ 			<h2 style="text-align:center">検索入力画面</h2>
  			<hr style="height:3; background-color:#0000ff" />
  			<br>
  			登録する情報を入力してください。
