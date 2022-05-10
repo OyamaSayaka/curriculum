@@ -52,8 +52,7 @@ String error = (String) request.getAttribute("error");
 					<td style="text-align: center; width: 250"><%=list.get(i).getRegisterdDate()%></td>
 					<td style="text-align: center; width: 250"><%=list.get(i).getUpdateTime()%></td>
 					<td style="text-align: center; width: 250"><%=list.get(i).getDeleteDate()%></td>
-					<td style="text-align: center; width: 100"><input
-						type="submit" value="編集"><input type="hidden"></td>
+					<td style="text-align: center; width: 100"><input type="submit" value="編集"><input type="hidden"value=<%=list.get(i).getCode()%>></td>
 				</tr>
 
 				
