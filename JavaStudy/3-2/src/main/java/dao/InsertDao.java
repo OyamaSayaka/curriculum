@@ -40,7 +40,7 @@ public class InsertDao {// 接続用の情報をフィールドに定数とし�
 		int product_code = resultSet.getInt("product_code");
 
 		// 採番したproduct_codeをキーにproduct_name、priceを取得
-		String sql = "INSERT INTO m_product(product_code, product_name, price, register_datetime, update_datetime, delete_datetime) VALUES(?, ?, ?, now(), now(), now());";
+		String sql = "INSERT INTO m_product(product_code, product_name, price, register_datetime, update_datetime) VALUES(?, ?, ?, now(), now());";
 
 		try {
 

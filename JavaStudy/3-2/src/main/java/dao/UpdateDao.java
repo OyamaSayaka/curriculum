@@ -3,13 +3,14 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UpdateDao {// 接続用の情報をフィールドに定数として定義
 	private static String RDB_DRIVE = "com.mysql.jdbc.Driver";
 	private static String URL = "jdbc:mysql://localhost/2-1";
 	private static String USER = "root";
-	private static String PASS = "EQLAa0_q";
+	private static String PASS = "don4028";
 
 	// データベース接続を行うメソッド
 	public static Connection getConnection() {
@@ -22,28 +23,144 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 		}
 	}
 
-	// データベースへデータを登録するメソッド
-	public void update(String name, String price,String product_code) throws SQLException, ClassNotFoundException {
+	// 検索画面を表示した時のupdate_datetimeを取ってくるメソッド
+	public int select_update_datetime(String product_code) throws SQLException, ClassNotFoundException {
 		// 変数宣言
 		Connection con = null;
 		PreparedStatement smt = null;
 
+		// return用変数
+		int count = 0;
 
+		String sql = "SELECT * FROM m_product WHERE product_code = ?;";
+
+		try {
+			con = getConnection();
+			smt = con.prepareStatement(sql);
+			smt.setString(1, product_code);
+			ResultSet resultSet = smt.executeQuery();
+			resultSet.next();
+			count = resultSet.getInt("update_datetime");
+
+		} catch (IllegalStateException e) {
+			throw new IllegalStateException(e);
+
+			// リソースの開放
+		} finally {
+			if (smt != null) {
+				try {
+					smt.close();
+				} catch (SQLException ignore) {
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException ignore) {
+				}
+			}
+		}
+		return count;
+	}
+
+	// 変更ボタンを押した時のupdate_datetimeを取ってくるメソッド
+	public static int select1_update_datetime(String product_code) throws SQLException, ClassNotFoundException {
+		// 変数宣言
+		Connection con = null;
+		PreparedStatement smt = null;
+
+		// return用変数
+		int count = 0;
+
+		String sql = "SELECT * FROM m_product WHERE product_code = ?;";
+
+		try {
+			con = getConnection();
+			smt = con.prepareStatement(sql);
+			smt.setString(1, product_code);
+			ResultSet resultSet = smt.executeQuery();
+			resultSet.next();
+			count = resultSet.getInt("update_datetime");
+
+		} catch (IllegalStateException e) {
+			throw new IllegalStateException(e);
+
+			// リソースの開放
+		} finally {
+			if (smt != null) {
+				try {
+					smt.close();
+				} catch (SQLException ignore) {
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException ignore) {
+				}
+			}
+		}
+		return count;
+	}
+
+// 売上があるか確認するメソッド
+	public int checkSales(int code) throws SQLException, ClassNotFoundException {
+		// 変数宣言
+		Connection con = null;
+		PreparedStatement smt = null;
+		int count = 0;
+
+		String sql = "SELECT * FROM t_sales WHERE product_code = ?;";
+
+		try {
+			con = getConnection();
+			smt = con.prepareStatement(sql);
+			smt.setInt(1, code);
+			ResultSet resultSet = smt.executeQuery();
+			resultSet.next();
+
+		} catch (IllegalStateException e) {
+			throw new IllegalStateException(e);
+
+			// リソースの開放
+		} finally {
+			if (smt != null) {
+				try {
+					smt.close();
+				} catch (SQLException ignore) {
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException ignore) {
+				}
+			}
+		}
+		return count;
+
+	}
+
+	// データベースへデータを更新するメソッド
+	public static int update(String name, String price, String code) throws SQLException, ClassNotFoundException {
+		// 変数宣言
+		Connection con = null;
+		PreparedStatement smt = null;
+		int count = 0;
 
 		// 変更ボタンを押した後入力された内容に更新をする
-		String sql = "UPDATE m_product SET (product_name=?, price=?,)WHERE product_code=?;";
-		
+		String sql = "UPDATE m_product SET product_name=?, price=?,update_datetime = NOW() WHERE product_code=?;";
+
 		try {
 
 			con = getConnection();
 			smt = con.prepareStatement(sql);
 			smt.setString(1, name);
 			smt.setString(2, price);
-			smt.setString(3, product_code);
+			smt.setString(3, code);
 
 			// SQLをDBへ発行
 			smt.executeUpdate();
-
 
 		} catch (IllegalStateException e1) {
 			throw new IllegalStateException(e1);
@@ -60,11 +177,46 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 				try {
 					con.close();
 				} catch (SQLException ignore) {
+
 				}
 			}
-
 		}
+		return count;
 
 	}
-}
 
+	// データを論理削除するメソッド
+	public void delete(String code, String name, String price) throws SQLException, ClassNotFoundException {
+		// 変数宣言
+		Connection con = null;
+		PreparedStatement smt = null;
+
+		// 論理削除を行う
+		String sql2 = "UPDATE m_product SET delete_datetime = NOW() WHERE product_code = ?;";
+
+		try {
+			con = getConnection();
+			smt = con.prepareStatement(sql2);
+			smt.setString(1, code);
+			smt.executeUpdate();
+
+		} catch (IllegalStateException e) {
+			throw new IllegalStateException(e);
+
+			// リソースの開放
+		} finally {
+			if (smt != null) {
+				try {
+					smt.close();
+				} catch (SQLException ignore) {
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException ignore) {
+				}
+			}
+		}
+	}
+}
