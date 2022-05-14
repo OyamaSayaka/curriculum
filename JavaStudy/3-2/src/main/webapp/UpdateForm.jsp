@@ -11,7 +11,7 @@
 <%String serialid = (String) request.getAttribute("serialid");%>
 <%String serialname = (String) request.getAttribute("serialname");%>
 <%String serialprice = (String) request.getAttribute("serialprice");%>
-<%String count = (String) request.getAttribute("count");%>
+
 
 
 <!DOCTYPE html>
@@ -31,15 +31,13 @@
 
 				<tr>
 					<td style="width: 60">商品コード</td>
-					<td><input type="hidden" name="product_code" value="<%=serialid%>"><%=serialid%></td>
+					<td><input type="hidden" name="product_code"
+						value="<%=serialid%>"><%=serialid%></td>
 				</tr>
 
 				<tr>
-					<td>
-					<input type="hidden" name="serialid" value="<%=serialcode%>">
-					<input type="hidden" name="serialprice" value="<%=serialprice%>">
-					<input type="hidden" name="count" value="<%=count%>">
-					</td>
+					<td><input type="hidden" name="serialid"value="<%=serialcode%>"> 
+						<input type="hidden"name="serialprice" value="<%=serialprice%>"></td>
 				</tr>
 
 
@@ -59,8 +57,10 @@
 
 
 				<tr>
-					<td colspan=2 style="text-align: right"><input type="submit"name='delete' value="削除"></td>
-					<td colspan=2 style="text-align: right"><input type="submit"name='update' value="変更"></td>
+					<td colspan=2 style="text-align: right"><input type="submit"
+						name='delete' value="削除"></td>
+					<td colspan=2 style="text-align: right"><input type="submit"
+						name='update' value="変更"></td>
 				</tr>
 
 
