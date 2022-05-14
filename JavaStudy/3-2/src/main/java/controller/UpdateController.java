@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import bean.bean;
 import dao.UpdateDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,6 +21,8 @@ public class UpdateController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		bean bean = new bean();
 
 		// 文字エンコーディングの指定
 		request.setCharacterEncoding("UTF-8");
@@ -32,18 +35,21 @@ public class UpdateController extends HttpServlet {
 
 		// UpdateForm.jspから入力されたデータを受け取る
 		String serialcode = request.getParameter("serialcode");
-		String serialid = request.getParameter("serialid");
 		String name = request.getParameter("name");
 		String price = request.getParameter("price");
 		String update = request.getParameter("update");
 		String delete = request.getParameter("delete");
+		String sdt = request.getParameter("selected_datetime");		
+		
+		System.out.println(sdt);
 
 		// DAOオブジェクト宣言
 		UpdateDao dao = new UpdateDao();
 
 		// 編集ボタン押下時の更新時間を取得
 		try {
-			editTime = dao.select_datetime(serialid);
+			editTime = dao.select_datetime(serialcode);
+			System.out.println(editTime);
 		} catch (ClassNotFoundException | SQLException e1) {
 			// スタックトーレスを出力する
 			e1.printStackTrace();
@@ -70,44 +76,37 @@ public class UpdateController extends HttpServlet {
 			}
 			
 		}
-	
-
 		if (update != null) {
-
 			try {
-
+				if(sdt == editTime) {
 				// 売上が発生しているか確認 0の場合更新、1の場合更新できない
-				int sales = dao.checkSales(Integer.parseInt(serialid));
+				int sales = dao.checkSales(Integer.parseInt(serialcode));
 				if (sales == 0) {
 
 					// 編集ボタン押下時の登録更新日時と変更前の登録更新日時が一緒か確認
 					// 更新前の登録日時を変数dateTimeに格納
-					String dateTime = dao.select_datetime(serialid);
+					String dateTime = dao.select_datetime(serialcode);
 
 					// 検索表示時点での登録更新日時と更新前の登録更新日時が一緒か確認
-
-					if (editTime.equals(dateTime)) {
-
 						// 変更できます。変更させるメソッド
-						dao.update(name, price, serialid, dateTime);
+						dao.update(name, price, serialcode, dateTime);
+						System.out.println("ここまで来てます");
 						request.getRequestDispatcher("UpdateComplete.jsp").forward(request, response);
-
-					} else {
-						// 変更できません。
-						error = "変更できません";
-
-						request.setAttribute("serialcode", serialcode);
-						request.setAttribute("serialid", serialid);
-							request.getRequestDispatcher("UpdateForm.jsp").forward(request, response);
-
-					}
+				
 				} else {
-					error = "既に登録済みの為、変更不可です。";
-					request.setAttribute("productNameError", productNameError);
-					request.setAttribute("priceError", priceError);
+					error = "計上済の商品です。";
+					
+					bean.setCode(Integer.parseInt(serialcode));
 					request.setAttribute("error", error);
 					request.getRequestDispatcher("UpdateForm.jsp").forward(request, response);
 				}
+			}else {
+				error = "履歴が更新されています。";
+				request.setAttribute("productNameError", productNameError);
+				request.setAttribute("priceError", priceError);
+				request.setAttribute("error", error);
+				request.getRequestDispatcher("UpdateForm.jsp").forward(request, response);
+			}
 
 			} catch (ClassNotFoundException | SQLException e1) {
 				// スタックトーレスを出力する
@@ -123,10 +122,10 @@ public class UpdateController extends HttpServlet {
 			try {
 
 				// 削除ボタンを押下時の更新日時を取得
-				String datetTime = dao.select_datetime(serialid);
+				String datetTime = dao.select_datetime(serialcode);
 
 				if (editTime == datetTime) {
-					dao.delete(serialid, name, price, datetTime);
+					dao.delete(serialcode, name, price, datetTime);
 
 					request.getRequestDispatcher("UpdateComplete.jsp").forward(request, response);
 

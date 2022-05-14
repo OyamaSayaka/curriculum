@@ -40,8 +40,8 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 			smt.setString(1, product_code);
 			ResultSet resultSet = smt.executeQuery();
 			while (resultSet.next())
-			count = resultSet.getString("update_datetime");
-
+				count = resultSet.getString("update_datetime");
+			System.out.println(count);
 
 		} catch (IllegalStateException e) {
 			throw new IllegalStateException(e);
@@ -81,7 +81,7 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 			// resultSetの中身が入っているかnull以外で書く
 
 			if (resultSet.next()) {
-				//↓falseかtrueだけだからこんな複雑にしなくてもよい
+				// ↓falseかtrueだけだからこんな複雑にしなくてもよい
 				count = resultSet.getRow();
 				if (count == 0) {
 					count = 0;
@@ -116,7 +116,7 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 			throws SQLException, ClassNotFoundException {
 		// 変数宣言
 		Connection con = null;
-		PreparedStatement smt = null;		
+		PreparedStatement smt = null;
 
 		// 変更ボタンを押した後入力された内容に更新をする
 		String sql = "UPDATE m_product SET product_name=?, price=?,update_datetime = NOW() WHERE product_code=?;";
@@ -170,14 +170,12 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 		try {
 			con = getConnection();
 
-		
-				smt = con.prepareStatement(deleteSql);
-				smt.setString(1, code);
-				smt.executeUpdate();
+			smt = con.prepareStatement(deleteSql);
+			smt.setString(1, code);
+			smt.executeUpdate();
 
-				// SQLをDBへ発行
-				smt.executeUpdate();
-			
+			// SQLをDBへ発行
+			smt.executeUpdate();
 
 		} catch (IllegalStateException e) {
 			throw new IllegalStateException(e);

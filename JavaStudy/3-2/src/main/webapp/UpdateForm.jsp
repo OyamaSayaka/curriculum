@@ -7,10 +7,7 @@
 <%String productNameError = (String) request.getAttribute("productNameError");%>
 <%String priceError = (String) request.getAttribute("priceError");%>
 <%String error = (String) request.getAttribute("error");%>
-<%String serialcode = (String) request.getAttribute("serialcode");%>
-<%String serialid = (String) request.getAttribute("serialid");%>
-<%String serialname = (String) request.getAttribute("serialname");%>
-<%String serialprice = (String) request.getAttribute("serialprice");%>
+<%bean editbean = (bean) request.getAttribute("editform");%>
 
 
 
@@ -24,20 +21,21 @@
 
 		<h2 style=>商品の変更・削除</h2>
 		<br>
-
+		<%if(error != null) %>
+		<div><%=error%></div>
 		<form action="/3-2/UpdateServlet" method="post">
 			<table style="margin: 0 auto">
-
-
+				
 				<tr>
 					<td style="width: 60">商品コード</td>
-					<td><input type="hidden" name="product_code"
-						value="<%=serialid%>"><%=serialid%></td>
+					<td><input type="hidden" name="product_code"value="<%=editbean.getCode()%>"><%=editbean.getCode()%></td>
 				</tr>
 
 				<tr>
-					<td><input type="hidden" name="serialid"value="<%=serialcode%>"> 
-						<input type="hidden"name="serialprice" value="<%=serialprice%>"></td>
+					<td>
+					 <input type="hidden"name="serialprice" value="<%=editbean.getPrice()%>>">
+					<input type="submit" name="selected_datetime"	value="<%=editbean.getUpdateTime()%>"></td>
+					
 				</tr>
 
 
