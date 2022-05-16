@@ -3,13 +3,14 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import bean.bean;
 import dao.UpdateDao;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/UpdateFormServlet")
 public class UpdateFormController extends HttpServlet {
@@ -22,7 +23,7 @@ public class UpdateFormController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		String error = "";
-		String datetime ="";
+		String serialdatetime ="";
 		
 		// UpdateForm.jspから入力されたデータを受け取る
 		
@@ -37,14 +38,15 @@ public class UpdateFormController extends HttpServlet {
 			// DAOオブジェクト宣言
 			UpdateDao upd = new UpdateDao();
 			
-			datetime = upd.select_datetime(serialcode);
+			serialdatetime = upd.select_datetime(serialcode);
+			
 			
 //			bean.setUpdateTime(datetime);
 //			bean.setCode(Integer.parseInt(serialcode));
 //			bean.setName(serialname);
 //			bean.setPrice(Integer.parseInt(serialprice));
 //			request.setAttribute("editform", bean);
-			bean.setUpdateTime(datetime);
+			
 			
 		
 			
@@ -63,7 +65,7 @@ public class UpdateFormController extends HttpServlet {
 			request.setAttribute("serialcode", serialcode);
 			request.setAttribute("serialname", serialname);
 			request.setAttribute("serialprice", serialprice);
-			request.setAttribute("datetime", datetime);
+			request.setAttribute("serialdatetime", serialdatetime);
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("/UpdateForm.jsp").forward(request, response);
 		}

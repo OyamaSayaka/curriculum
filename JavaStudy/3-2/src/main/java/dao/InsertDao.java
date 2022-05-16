@@ -28,10 +28,12 @@ public class InsertDao {// 接続用の情報をフィールドに定数とし�
 		// 変数宣言
 		Connection con = null;
 		PreparedStatement smt = null;
+		String register_datetime ="";
+		String update_datetime ="";
 		
 
 		// 未使用のproduct_codeを採番
-		String sql1 = "SELECT MIN(product_code + 1) AS product_code FROM m_product WHERE (product_code + 1) NOT IN (SELECT product_code FROM m_product);";
+		String sql1 = "SELECT MAX(product_code)+1 AS product_code FROM m_product;";
 
 		con = getConnection();
 		smt = con.prepareStatement(sql1);
@@ -39,8 +41,21 @@ public class InsertDao {// 接続用の情報をフィールドに定数とし�
 		resultSet.next();
 		int product_code = resultSet.getInt("product_code");
 
-		// 採番したproduct_codeをキーにproduct_name、priceを取得
-		String sql = "INSERT INTO m_product(product_code, product_name, price, register_datetime, update_datetime) VALUES(?, ?, ?, now(), now());";
+		// register_datetime, update_datetimeのNOW()を変数nowに格納
+		// register_datetime, update_datetimeを選択
+		String sql2 = "SELECT register_datetime, update_datetime, delete_datetime FROM m_product WHERE (product_code = ?);";
+
+		con = getConnection();
+		PreparedStatement now = con.prepareStatement(sql2);
+		now.setInt(1, product_code);
+		ResultSet nowtime = now.executeQuery();
+		while (nowtime.next()) {
+			 register_datetime = nowtime.getString("register_datetime");
+			 update_datetime = nowtime.getString("update_datetime");
+		}
+
+		// 採番したproduct_codeをキーにproduct_code、product_name、priceregister_datetime、update_datetimeを追加登録
+		String sql = "INSERT INTO m_product(product_code, product_name, price, register_datetime, update_datetime) VALUES(?, ?, ?, ?,? );";
 
 		try {
 
@@ -49,13 +64,11 @@ public class InsertDao {// 接続用の情報をフィールドに定数とし�
 			smt.setInt(1, product_code);
 			smt.setString(2, name);
 			smt.setString(3, price);
+			smt.setString(4, register_datetime);
+			smt.setString(5, update_datetime);
 
 			// SQLをDBへ発行
 			smt.executeUpdate();
-		    
-
-		
-
 
 		} catch (IllegalStateException e1) {
 			throw new IllegalStateException(e1);

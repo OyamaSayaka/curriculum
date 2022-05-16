@@ -49,15 +49,15 @@ public class SelectDao {// 接続用の情報をフィールドに定数とし�
 			// 検索結果を配列に格納
 			while (rs.next()) {
 				bean bean = new bean();
-				bean.setCode(rs.getInt("product_code"));
+				bean.setCode(rs.getString("product_code"));
 				bean.setName(rs.getString("product_name"));
-				bean.setPrice(rs.getInt("price"));
+				bean.setPrice(rs.getString("price"));
 				bean.setRegisterdDate(rs.getString("register_datetime"));
 				bean.setUpdateTime(rs.getString("update_datetime"));
 				bean.setDeleteDate(rs.getString("delete_datetime"));
 				list.add(bean);
 				
-				System.out.println("接続成功です");
+				
 
 			}
 

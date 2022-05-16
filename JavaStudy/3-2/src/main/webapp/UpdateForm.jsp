@@ -7,12 +7,10 @@
 <%String productNameError = (String) request.getAttribute("productNameError");%>
 <%String priceError = (String) request.getAttribute("priceError");%>
 <%String error = (String) request.getAttribute("error");%>
-<%bean editbean = (bean) request.getAttribute("editform");%>
-<%bean formcodebean = (bean) request.getAttribute("formcodebean");%>
 <%String serialcode = (String) request.getAttribute("serialcode");%>
 <%String serialname = (String) request.getAttribute("serialname");%>
 <%String serialprice = (String) request.getAttribute("serialprice");%>
-<%String serialtime = (String) request.getAttribute("serialtime");%>
+<%String serialdatetime = (String) request.getAttribute("serialdatetime");%>
 
 <!DOCTYPE html>
 <html>
@@ -24,8 +22,7 @@
 
 		<h2 style=>商品の変更・削除</h2>
 		<br>
-		<%if(error != null) %>
-		<div><%=error%></div>
+		
 		<form action="/3-2/UpdateServlet" method="post">
 			<table style="margin: 0 auto">
 				
@@ -37,8 +34,8 @@
 				<tr>
 					<td>
 					 <input type="hidden"name="serialprice" value="<%=serialprice%>">
-					 <input type="hidden"name="serialtime" value="<%=serialtime%>">
-					 <%=serialtime %>
+					 <input type="hidden"name="serialdatetime" value="<%=serialdatetime%>">
+					 
 					</td>
 					
 				</tr>
@@ -55,7 +52,7 @@
 				<tr>
 					<td style="width: 60">単価</td>
 					<td><input type=text size="20" name="price"></td>
-					<td><font color="red">${priceError}</font></td>
+					<td><font color="red">${priceError}${error}</font></td>
 				</tr>
 
 

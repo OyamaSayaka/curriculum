@@ -24,7 +24,7 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 	}
 
 	// 変更ボタンを押した時のupdate_datetimeを取ってくるメソッド
-	public String select_datetime(String code) throws SQLException, ClassNotFoundException {
+	public String select_datetime(String product_code) throws SQLException, ClassNotFoundException {
 		// 変数宣言
 		Connection con = null;
 		PreparedStatement smt = null;
@@ -37,11 +37,11 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 		try {
 			con = getConnection();
 			smt = con.prepareStatement(sql);
-			smt.setString(1, code);
+			smt.setString(1, product_code);
 			ResultSet resultSet = smt.executeQuery();
 			while (resultSet.next())
 				count = resultSet.getString("update_datetime");
-			
+
 
 		} catch (IllegalStateException e) {
 			throw new IllegalStateException(e);
@@ -112,7 +112,7 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 	}
 
 	// データベースへデータを更新するメソッド
-	public void update(String name, String price, String serialcode, String dateTime)
+	public void update(String name, String price, String code, String dateTime)
 			throws SQLException, ClassNotFoundException {
 		// 変数宣言
 		Connection con = null;
@@ -129,7 +129,7 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 			smt = con.prepareStatement(sql);
 			smt.setString(1, name);
 			smt.setString(2, price);
-			smt.setString(3, serialcode);
+			smt.setString(3, code);
 
 			// SQLをDBへ発行
 			smt.executeUpdate();
@@ -157,25 +157,30 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 	}
 
 	// データを論理削除するメソッド
-	public int delete(String serialcode, String name, String price, String datetTime)
+	public void delete(String code, String name, String price, String datetTime)
 			throws SQLException, ClassNotFoundException {
 		// 変数宣言
 		Connection con = null;
 		PreparedStatement smt = null;
-		int count = 0;
 
 		// 論理削除を行う
 		String deleteSql = "UPDATE m_product SET delete_datetime = NOW() WHERE product_code = ?;";
+		String dateSql = "SELECT update_datetime FROM m_product WHERE product_code= ? ;";
 
 		try {
 			con = getConnection();
+			PreparedStatement cd = con.prepareStatement(dateSql);
+			cd.setString(1, code);
+			ResultSet dateCheck = cd.executeQuery();
+			while (dateCheck.next()) {
 
-			smt = con.prepareStatement(deleteSql);
-			smt.setString(1, serialcode);
-			smt.executeUpdate();
+				smt = con.prepareStatement(deleteSql);
+				smt.setString(1, code);
 
-			// SQLをDBへ発行
-			smt.executeUpdate();
+				// SQLをDBへ発行
+				smt.executeUpdate();
+
+			}
 
 		} catch (IllegalStateException e) {
 			throw new IllegalStateException(e);
@@ -195,6 +200,5 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 				}
 			}
 		}
-		return count;
 	}
 }

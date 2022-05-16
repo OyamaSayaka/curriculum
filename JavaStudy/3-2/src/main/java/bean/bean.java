@@ -1,24 +1,29 @@
 package bean;
+import java.io.Serializable;
 
-public class bean {
 
-	private int product_code;  //id格納用変数
+public class bean implements Serializable {
+
+	private String product_code;  //id格納用変数
 	private String product_name;
-	private int price;
+	private String price;
 	private String updatetime;
 	private String registerdatetime;
 	private String deletedate;
-	private int quantity; // 数量
+	private String quantity; // 数量
+	private String salesdate;
+
+	
 
 	public bean() {
 
 	}
 
-	public int getCode() {
+	public String getCode() {
 		return product_code;
 	}
 
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.product_code = code;
 	}
 
@@ -31,12 +36,12 @@ public class bean {
 		this.product_name = name;
 	}
 
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
@@ -66,12 +71,20 @@ public class bean {
 	
 	
 	
-	public void setQuantity(int quantity) {
+	public void setQuantity(String quantity) {
 		this.quantity = quantity;
 	}
 
-	public int getQuantity() {
+	public String getQuantity() {
 		return quantity;
+	}
+	
+	public String getSalesdate() {
+		return salesdate;
+	}
+
+	public void setSalesdate(String salesdate) {
+		this.salesdate = salesdate;
 	}
 
 }
