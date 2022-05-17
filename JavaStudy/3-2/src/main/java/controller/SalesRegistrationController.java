@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -11,59 +12,65 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.bean;
+import dao.SalesRegistrationDao;
 
-/**
- * Servlet implementation class SalesRegistration
- */
-@WebServlet("/SalesRegistration")
+@WebServlet("/SalesRegistrationController")
 public class SalesRegistrationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		bean bean = new bean();
+
+		String error = "";
+		int count = 0;
 
 		// 文字エンコーディングの指定
 		request.setCharacterEncoding("UTF-8");
 
-		String error = "";
+		// JSPから送られた登録ボタンの値を受け取る
+		String registration = request.getParameter("registration");
+		String name = request.getParameter("name");
+		String quantity = request.getParameter("quantity");
 
-		// SalesRegistrationから値を受け取る
-//		String productName = request.getParameter("productName");
-//		String quantity = request.getParameter("quantity");
-		String addproduct = request.getParameter("add");
+		// 登録ボタンが押下されたとき、一括登録をする
+		if (registration != null) {
 
-		// セッションオブジェクトの生成
-		HttpSession session = request.getSession();
-
-		// 追加ボタン押下時に出力
-
-		if (addproduct != null) {
-
-			bean bean = new bean();
-
-//				bean.setName(getString("productName"));
-//				bean.setCode(getString("quantity"));
+			// セッションオブジェクトの生成
+			HttpSession session = request.getSession();
 			// 配列宣言
-			ArrayList<bean> list = new ArrayList<bean>();
+			ArrayList<bean> reglist = new ArrayList<bean>();
 
-			//
-			bean.setName(request.getParameter("productName"));
+			// 一括登録された商品と数量をリストに格納
+
+			bean.setName(request.getParameter("name"));
 			bean.setQuantity(request.getParameter("quantity"));
-			list.add(bean);
-			
-			// セッションへのデータの登録
-			session.setAttribute("list", list);
-			request.getRequestDispatcher("SalesRegistration.jsp").forward(request, response);
+			reglist.add(bean);
 
-			
-		} else {
-			error = "空欄です。入力してください";
-			session.setAttribute("error", error);
-			request.getRequestDispatcher("SalesRegistration.jsp").forward(request, response);
+			// DAOオブジェクト宣言
+			SalesRegistrationDao dao = new SalesRegistrationDao();
+
+			try {
+				dao.insert(bean.getName(), bean.getQuantity());
+
+				if(count != 0) {
+				session.setAttribute("registration", registration);
+				request.getRequestDispatcher("SalesRegistrationComplrte.jsp").forward(request, response);
+
+				}else {
+					error ="本日の売上登録は既に完了してます。";
+					
+					session.setAttribute("error", error);
+					request.getRequestDispatcher("SalesRegistration.jsp").forward(request, response);
+					
+				}
+
+			} catch (ClassNotFoundException | SQLException e1) {
+				// スタックトーレスを出力する
+				e1.printStackTrace();
+			}
+
 		}
-
 	}
-
 }

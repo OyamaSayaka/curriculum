@@ -11,7 +11,7 @@
 <h2>メニュー</h2>
 <p><a href="/3-2/SelectForm.jsp">商品検索</a></p>
 <p><a href="/3-2/InsertForm.jsp">商品登録</a></p>
-<p><a href="/3-2/SalesRegistration.jsp">商品登録</a></p>
+<p><a href="/3-2/SalesRegistration.jsp">売上登録</a></p>
 
 </div>
 </body>
