@@ -14,41 +14,32 @@
 <title>変更完了画面</title>
 </head>
 <body>
-
-
 	<%
 	if (update != null && delete == null) {
 	%>
 
-	<div class="update" style="text-align: center">
-		<h2 style="text-align: center">変更完了画面</h2>
-		<hr style="height: 3; background-color: #0000ff" />
-		<br> データを変更しました。 <br> <a href="/3-2/menu.jsp">メニューに戻る</a>
-
+	<div class="update" style="text-align: center;">
+		<h2 style="text-align: center;">変更完了画面</h2>
+		<hr style="height: 3; background-color: #0000ff;" />
+		<br> データを変更しました。 <br> 
+		<a href="/3-2/menu.jsp">メニューに戻る</a>
 	</div>
 
 	<%}%>
-
-
-
 
 	<%
 	if (delete != null && update == null) {
 	%>
 
 
-	<div class="delete" style="text-align: center">
-		<h2 style="text-align: center">削除完了画面</h2>
-		<hr style="height: 3; background-color: #0000ff" />
-		<br> データを削除しました。 <br> <a href="/3-2/menu.jsp">メニューに戻る</a>
-
+	<div class="delete" style="text-align: center;">
+		<h2 style="text-align: center;">削除完了画面</h2>
+		<hr style="height: 3; background-color: #0000ff;" />
+		<br> データを削除しました。 <br>
+		 <a href="/3-2/menu.jsp">メニューに戻る</a>
 	</div>
 
 	<%}%>
-
-	
-
-
 
 </body>
 </html>

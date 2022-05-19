@@ -18,38 +18,26 @@ public class UpdateFormController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		bean bean =new bean();
+		bean bean = new bean();
 		// 文字エンコーディングの指定
 		request.setCharacterEncoding("UTF-8");
 
 		String error = "";
-		String serialdatetime ="";
-		
+		String serialdatetime = "";
+
 		// UpdateForm.jspから入力されたデータを受け取る
-		
+
 		String serialcode = request.getParameter("serialcode");
-		
+
 		String serialname = request.getParameter("serialname");
 		String serialprice = request.getParameter("serialprice");
-		
 
 		try {
 
 			// DAOオブジェクト宣言
 			UpdateDao upd = new UpdateDao();
-			
+
 			serialdatetime = upd.select_datetime(serialcode);
-			
-			
-//			bean.setUpdateTime(datetime);
-//			bean.setCode(Integer.parseInt(serialcode));
-//			bean.setName(serialname);
-//			bean.setPrice(Integer.parseInt(serialprice));
-//			request.setAttribute("editform", bean);
-			
-			
-		
-			
 
 		} catch (IllegalStateException e) {
 			error = "エラーの為、一覧表示はできませんでした。";
@@ -60,8 +48,8 @@ public class UpdateFormController extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
-			
-		}finally {
+
+		} finally {
 			request.setAttribute("serialcode", serialcode);
 			request.setAttribute("serialname", serialname);
 			request.setAttribute("serialprice", serialprice);
@@ -71,4 +59,3 @@ public class UpdateFormController extends HttpServlet {
 		}
 	}
 }
-

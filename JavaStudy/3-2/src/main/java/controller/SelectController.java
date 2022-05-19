@@ -18,15 +18,12 @@ import dao.SelectDao;
 @WebServlet("/SerchServlet")
 public class SelectController extends HttpServlet {
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		// コンテンツタイプの設定
 //		response.setContentType("text/html; charset = UTF8");
-	
-		
-		
+
 		String error = "";
 
 		try {
@@ -54,5 +51,4 @@ public class SelectController extends HttpServlet {
 		}
 
 	}
-
 }

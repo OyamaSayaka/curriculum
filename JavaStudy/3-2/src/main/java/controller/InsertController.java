@@ -44,7 +44,7 @@ public class InsertController extends HttpServlet {
 			if (!price.matches("^[0-9]+$|-[0-9]+$")) {
 				priceError = "数字を入力してください。";
 			} else {
-				if (Integer.parseInt(price) <= 1) {
+				if (Integer.parseInt(price) < 1) {
 					priceError = "1以上で入力してください。";
 				}
 			}

@@ -45,9 +45,9 @@ String error = (String) request.getAttribute("error");
 					<form action="/3-2/UpdateFormServlet" method="post">
 						<input type="submit" value="編集" /><input type="hidden"name="serialcode" value="<%=list.get(i).getCode()%>" />
 						<input type="hidden"name="serialid" value="<%=list.get(i).getCode()%>" />
-							<input type="hidden"name="serialname" value="<%=list.get(i).getName()%>" />
-							<input type="hidden"name="serialprice" value="<%=list.get(i).getPrice()%>" />
-							<input type="hidden"name="serialUpdateTime" value="<%=list.get(i).getUpdateTime()%>" />
+						<input type="hidden"name="serialname" value="<%=list.get(i).getName()%>" />
+						<input type="hidden"name="serialprice" value="<%=list.get(i).getPrice()%>" />
+						<input type="hidden"name="serialUpdateTime" value="<%=list.get(i).getUpdateTime()%>" />
 					</form>
 				</td>
 			</tr>

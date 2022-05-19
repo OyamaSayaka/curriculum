@@ -10,7 +10,7 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 	private static String RDB_DRIVE = "com.mysql.jdbc.Driver";
 	private static String URL = "jdbc:mysql://localhost/2-1";
 	private static String USER = "root";
-	private static String PASS = "don4028";
+	private static String PASS = "EQLAa0_q";
 
 	// データベース接続を行うメソッド
 	public static Connection getConnection() {
@@ -41,7 +41,6 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 			ResultSet resultSet = smt.executeQuery();
 			while (resultSet.next())
 				count = resultSet.getString("update_datetime");
-
 
 		} catch (IllegalStateException e) {
 			throw new IllegalStateException(e);
@@ -78,16 +77,12 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 			smt = con.prepareStatement(sql);
 			smt.setInt(1, code);
 			ResultSet resultSet = smt.executeQuery();
-			// resultSetの中身が入っているかnull以外で書く
-
-			if (resultSet.next()) {
-				// ↓falseかtrueだけだからこんな複雑にしなくてもよい
+			
+			// resultSetの中身が入っているか確認
+			if (resultSet.next() == false) {
 				count = resultSet.getRow();
-				if (count == 0) {
-					count = 0;
-				} else
-					count = 1;
-			}
+			} else
+				count = 1;
 
 		} catch (IllegalStateException e) {
 			throw new IllegalStateException(e);
@@ -124,8 +119,6 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 		try {
 
 			con = getConnection();
-			PreparedStatement cd = con.prepareStatement(sql);
-
 			smt = con.prepareStatement(sql);
 			smt.setString(1, name);
 			smt.setString(2, price);

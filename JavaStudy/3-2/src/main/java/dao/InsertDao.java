@@ -5,12 +5,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class InsertDao {// 接続用の情報をフィールドに定数として定義
 	private static String RDB_DRIVE = "com.mysql.jdbc.Driver";
 	private static String URL = "jdbc:mysql://localhost/2-1";
 	private static String USER = "root";
-	private static String PASS = "don4028";
+	private static String PASS = "EQLAa0_q";
 
 	// データベース接続を行うメソッド
 	public static Connection getConnection() {
@@ -28,8 +30,6 @@ public class InsertDao {// 接続用の情報をフィールドに定数とし�
 		// 変数宣言
 		Connection con = null;
 		PreparedStatement smt = null;
-		String register_datetime ="";
-		String update_datetime ="";
 		
 
 		// 未使用のproduct_codeを採番
@@ -41,31 +41,22 @@ public class InsertDao {// 接続用の情報をフィールドに定数とし�
 		resultSet.next();
 		int product_code = resultSet.getInt("product_code");
 
-		// register_datetime, update_datetimeのNOW()を変数nowに格納
-		// register_datetime, update_datetimeを選択
-		String sql2 = "SELECT register_datetime, update_datetime, delete_datetime FROM m_product WHERE (product_code = ?);";
-
-		con = getConnection();
-		PreparedStatement now = con.prepareStatement(sql2);
-		now.setInt(1, product_code);
-		ResultSet nowtime = now.executeQuery();
-		while (nowtime.next()) {
-			 register_datetime = nowtime.getString("register_datetime");
-			 update_datetime = nowtime.getString("update_datetime");
-		}
-
 		// 採番したproduct_codeをキーにproduct_code、product_name、priceregister_datetime、update_datetimeを追加登録
 		String sql = "INSERT INTO m_product(product_code, product_name, price, register_datetime, update_datetime) VALUES(?, ?, ?, ?,? );";
 
 		try {
+
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd H:m:s");
+			String dateTime = sdf.format(timestamp);
 
 			con = getConnection();
 			smt = con.prepareStatement(sql);
 			smt.setInt(1, product_code);
 			smt.setString(2, name);
 			smt.setString(3, price);
-			smt.setString(4, register_datetime);
-			smt.setString(5, update_datetime);
+			smt.setString(4, dateTime);
+			smt.setString(5, dateTime);
 
 			// SQLをDBへ発行
 			smt.executeUpdate();

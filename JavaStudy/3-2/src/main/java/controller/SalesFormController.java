@@ -18,6 +18,7 @@ import bean.bean;
 @WebServlet("/SalesForm")
 public class SalesFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -26,10 +27,12 @@ public class SalesFormController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		// SalesRegistrationから値を受け取る
-//		String productName = request.getParameter("productName");
-//		String quantity = request.getParameter("quantity");
 		String addproduct = request.getParameter("add");
-
+		String name = request.getParameter("name");
+		String quantity = request.getParameter("quantity");
+		String quantityError = "";
+		
+		
 		// セッションオブジェクトの生成
 		HttpSession session = request.getSession();
 
@@ -44,61 +47,66 @@ public class SalesFormController extends HttpServlet {
 			// 配列宣言
 			ArrayList<bean> list = new ArrayList<bean>();
 
-			//
-			bean.setName(request.getParameter("productName"));
-			bean.setQuantity(request.getParameter("quantity"));
-			list.add(bean);
+			// チェック処理			
+			// 数量必須入力
+			if (quantity.isEmpty()) {
+				quantityError = "数量が空欄です。";
+			} else {
+				// 単価が数字のみの表示
+				if (!quantity.matches("^[0-9]+$|-[0-9]+$")) {
+					quantityError = "数字を入力してください。";
+				} else {
+					if (Integer.parseInt(quantity) < 1) {
+						quantityError = "1以上で入力してください。";
+					}
+				}
+			}
 
-			// セッションへのデータの登録
-			session.setAttribute("list", list);
-			request.getRequestDispatcher("SalesRegistration.jsp").forward(request, response);
-			return;
+			// エラーがないとき
+			if (quantityError == "") {
+
+				bean.setName(request.getParameter("name"));
+				bean.setQuantity(request.getParameter("quantity"));
+				if (session.getAttribute("list") != null) {
+					ArrayList<bean> list1 = (ArrayList<bean>) session.getAttribute("list");
+					for (bean bean1 : list1) {
+						list.add(bean1);
+
+					}
+					
+			
+					
+//					int count = 0;
+					
+//					for (bean bean1 : list) {
+					// 名前が一緒だったら数量をインクリメントする
+//						if (bean1.getName().equals(bean.getName())) {
+//							int quantity = Integer.parseInt(bean.getQuantity());
+//							quantity++;
+//							bean1.setQuantity(Integer.toString(quantity));
+//							list.set(count, bean1);
+					//
+//						} else {
+					list.add(bean);
+//						}
+//					}
+
+				} else {
+					list.add(bean);
+
+				}
+				// セッションへのデータの登録
+				session.setAttribute("list", list);
+				request.getRequestDispatcher("SalesRegistration.jsp").forward(request, response);
+				return;
+
+			} else {
+			request.setAttribute("quantityError", quantityError);
+				request.getRequestDispatcher("SalesRegistration.jsp").forward(request, response);
+
+			}
 
 		}
+
 	}
-
-
-
-//			// チェック処理
-//
-//			// 商品名必須入力
-//			if (name.isEmpty()) {
-//				productNameError = "商品名が空欄です。";
-//			}
-//
-//			// 単価必須入力
-//			if (price.isEmpty()) {
-//				priceError = "単価が空欄です。";
-//			} else {
-//				// 単価が数字のみの表示
-//				if (!price.matches("^[0-9]+$|-[0-9]+$")) {
-//					priceError = "数字を入力してください。";
-//				} else {
-//					if (Integer.parseInt(price) < 1) {
-//						priceError = "1以上で入力してください。";
-//					}
-//				}
-//			}
-//
-//			// エラーがないとき
-//			if (productNameError == "" && priceError == "") {
-//				// 1件登録メソッドを呼び出し
-//				try {
-//					dao.insert(name, price);
-//
-//				} catch (ClassNotFoundException | SQLException e1) {
-//					// スタックトーレスを出力する
-//					e1.printStackTrace();
-//				}
-//
-//				request.getRequestDispatcher("InsertComplete.jsp").forward(request, response);
-//
-//			} else {
-//				request.setAttribute("productNameError", productNameError);
-//				request.setAttribute("priceError", priceError);
-//				request.getRequestDispatcher("InsertForm.jsp").forward(request, response);
-//
-//			}
-
-
 }

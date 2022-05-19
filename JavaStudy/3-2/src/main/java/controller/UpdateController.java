@@ -133,16 +133,17 @@ public class UpdateController extends HttpServlet {
 			try {
 
 				// 削除ボタンを押下時の更新日時を取得
-				String datetTime = dao.select_datetime(serialcode);
+				String dateTime = dao.select_datetime(serialcode);
 
-				if (editTime.equals(datetTime)) {
-					dao.delete(serialcode, name, price, datetTime);
+				if (editTime.equals(dateTime)) {
+					dao.delete(serialcode, name, price, dateTime);
 					request.setAttribute("delete", delete);
 					request.getRequestDispatcher("UpdateComplete.jsp").forward(request, response);
 
 				} else {
 					deleteError = "削除できませんでした。もう一度やり直してください。";
 					request.setAttribute("deleteError", deleteError);
+					request.setAttribute("serialcode", serialcode);
 					request.getRequestDispatcher("UpdateForm.jsp").forward(request, response);
 
 				}
