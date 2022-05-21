@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import bean.bean;
 
@@ -12,7 +14,7 @@ public class SalesRegistrationDao {// 接続用の情報をフィールドに定
 	private static String RDB_DRIVE = "com.mysql.jdbc.Driver";
 	private static String URL = "jdbc:mysql://localhost/2-1";
 	private static String USER = "root";
-	private static String PASS = "EQLAa0_q";
+	private static String PASS = "don4028";
 
 	// データベース接続を行うメソッド
 	public static Connection getConnection() {
@@ -80,16 +82,25 @@ public class SalesRegistrationDao {// 接続用の情報をフィールドに定
 		Connection con = null;
 		PreparedStatement smt = null;
 		String count = null;
+		
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd H:m:s");
+		String dateTime = sdf.format(timestamp);
+		
+		
 
 		// 売上を一括登録
-		String sql = "INSERT INTO t_sales(sales_date, product_code, quantity, register_datetime, update_datetime) VALUES(NOW(), ?, ?, NOW(),NOW());";
+		String sql = "INSERT INTO t_sales(sales_date, product_code, quantity, register_datetime, update_datetime) VALUES(?, ?, ?, ?, ?);";
 
 		try {
 			bean bean = new bean();
 			con = getConnection();
 			smt = con.prepareStatement(sql);
-			smt.setString(1, code);
-			smt.setString(2, quantity);
+			smt.setString(1, dateTime);
+			smt.setString(2, code);
+			smt.setString(3, quantity);
+			smt.setString(4, dateTime);
+			smt.setString(5, dateTime);
 
 //エラーになっちゃう
 

@@ -18,7 +18,6 @@ import bean.bean;
 @WebServlet("/SalesForm")
 public class SalesFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -31,8 +30,7 @@ public class SalesFormController extends HttpServlet {
 		String name = request.getParameter("name");
 		String quantity = request.getParameter("quantity");
 		String quantityError = "";
-		
-		
+
 		// セッションオブジェクトの生成
 		HttpSession session = request.getSession();
 
@@ -42,12 +40,10 @@ public class SalesFormController extends HttpServlet {
 
 			bean bean = new bean();
 
-//				bean.setName(getString("productName"));
-//				bean.setCode(getString("quantity"));
 			// 配列宣言
 			ArrayList<bean> list = new ArrayList<bean>();
 
-			// チェック処理			
+			// チェック処理
 			// 数量必須入力
 			if (quantity.isEmpty()) {
 				quantityError = "数量が空欄です。";
@@ -67,29 +63,29 @@ public class SalesFormController extends HttpServlet {
 
 				bean.setName(request.getParameter("name"));
 				bean.setQuantity(request.getParameter("quantity"));
+
+				// listがnullじゃない場合
 				if (session.getAttribute("list") != null) {
+					// listの値をlist1に入れていく。
 					ArrayList<bean> list1 = (ArrayList<bean>) session.getAttribute("list");
+					// list1の要素数ループしている間listを追加していく
 					for (bean bean1 : list1) {
 						list.add(bean1);
-
 					}
-					
+					for (bean bean1 : list) {
+						// 名前が一緒だったら数量を足す
+						if (bean1.getName().equals(bean.getName())) {
+							int sum = Integer.parseInt(bean.getQuantity()) + Integer.parseInt(bean1.getQuantity());
+							// 数量をセットする
+							bean1.setQuantity(Integer.toString(sum));
 			
-					
-//					int count = 0;
-					
-//					for (bean bean1 : list) {
-					// 名前が一緒だったら数量をインクリメントする
-//						if (bean1.getName().equals(bean.getName())) {
-//							int quantity = Integer.parseInt(bean.getQuantity());
-//							quantity++;
-//							bean1.setQuantity(Integer.toString(quantity));
-//							list.set(count, bean1);
-					//
-//						} else {
-					list.add(bean);
-//						}
-//					}
+							
+//							list.set(sum, bean1);
+						} else {
+							// 名前が一致しなかったらリストに追加していく
+							list.add(bean);
+						}
+					}
 
 				} else {
 					list.add(bean);
@@ -101,12 +97,11 @@ public class SalesFormController extends HttpServlet {
 				return;
 
 			} else {
-			request.setAttribute("quantityError", quantityError);
+				request.setAttribute("quantityError", quantityError);
 				request.getRequestDispatcher("SalesRegistration.jsp").forward(request, response);
 
 			}
 
 		}
 
-	}
-}
+}}

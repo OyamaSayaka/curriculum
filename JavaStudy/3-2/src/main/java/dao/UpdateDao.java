@@ -10,7 +10,7 @@ public class UpdateDao {// 接続用の情報をフィールドに定数とし�
 	private static String RDB_DRIVE = "com.mysql.jdbc.Driver";
 	private static String URL = "jdbc:mysql://localhost/2-1";
 	private static String USER = "root";
-	private static String PASS = "EQLAa0_q";
+	private static String PASS = "don4028";
 
 	// データベース接続を行うメソッド
 	public static Connection getConnection() {

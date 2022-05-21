@@ -12,6 +12,7 @@ public class bean implements Serializable {
 	private String deletedate;
 	private String quantity; // 数量
 	private String salesdate;
+	private int money;//金額
 
 	
 
@@ -85,6 +86,14 @@ public class bean implements Serializable {
 
 	public void setSalesdate(String salesdate) {
 		this.salesdate = salesdate;
+	}
+
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
 	}
 
 }
